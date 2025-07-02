@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import api from "@/lib/axios";
 import { PokemonCard } from "@/components/PokemonCard";
 import type { PokemonDetail } from "@/types/pokemon";
@@ -11,12 +11,10 @@ const HomePage = () => {
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
 
-  const fetchPokemons = async () => {
+  const fetchPokemons = async (currentOffset: number) => {
     setLoading(true);
     try {
-      const { data } = await api.get(
-        `pokemon?offset=${offset}&limit=${PAGE_LIMIT}`
-      );
+      const { data } = await api.get(`pokemon?offset=${currentOffset}&limit=${PAGE_LIMIT}`);
 
       const results = await Promise.all(
         data.results.map((p: { name: string }) =>
@@ -34,15 +32,24 @@ const HomePage = () => {
     }
   };
 
-  useEffect(() => {
-    fetchPokemons();
-  }, [offset]);
+  const handleScroll = useCallback(() => {
+    const scrollTop = window.scrollY;
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.body.scrollHeight;
 
-  const loadMore = () => {
-    if (hasMore && !loading) {
+    if (scrollTop + windowHeight >= documentHeight - 300 && !loading && hasMore) {
       setOffset((prev) => prev + PAGE_LIMIT);
     }
-  };
+  }, [loading, hasMore]);
+
+  useEffect(() => {
+    fetchPokemons(offset);
+  }, [offset]);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [handleScroll]);
 
   return (
     <div className="max-w-screen-xl mx-auto p-4">
@@ -54,15 +61,9 @@ const HomePage = () => {
         ))}
       </div>
 
-      {hasMore && (
-        <div className="text-center mt-6">
-          <button
-            onClick={loadMore}
-            disabled={loading}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition disabled:opacity-50"
-          >
-            {loading ? "Cargando..." : "Cargar más"}
-          </button>
+      {loading && (
+        <div className="text-center py-6 text-gray-500 text-sm">
+          Cargando más Pokémon...
         </div>
       )}
     </div>
