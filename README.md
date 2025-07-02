@@ -1,6 +1,7 @@
 # Pokémon Explorer 🧭
 
-Aplicación web construida con React + TypeScript que permite explorar Pokémon utilizando la [PokeAPI](https://pokeapi.co). Permite ver una lista de Pokémon, ver sus detalles, marcar como favoritos y navegar de forma fluida con scroll infinito y diseño mobile-first.
+Aplicación web construida con React + TypeScript que permite explorar Pokémon utilizando la [PokeAPI](https://pokeapi.co). 
+Puedes compilar la aplicación y correrla en local o puedes acceder desde aqui https://pokemon-explorer-acs.vercel.app/
 
 ---
 
