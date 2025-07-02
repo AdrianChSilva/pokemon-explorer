@@ -1,0 +1,52 @@
+import { useEffect, useState } from "react";
+import { useFavoritesStore } from "@/store/favorites";
+import { PokemonCard } from "@/components/PokemonCard";
+import { getPokemonDetails } from "@/lib/getPokemonDetails";
+import type { PokemonDetail } from "@/types/pokemon";
+
+const FavoritesPage = () => {
+  const { favorites } = useFavoritesStore();
+  const [data, setData] = useState<PokemonDetail[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      setLoading(true);
+      const pokemons = await getPokemonDetails(favorites);
+      setData(pokemons);
+      setLoading(false);
+    };
+
+    if (favorites.length > 0) {
+      fetchFavorites();
+    } else {
+      setData([]);
+    }
+  }, [favorites]);
+
+  if (loading) {
+    return <p className="text-center mt-10">Cargando favoritos...</p>;
+  }
+
+  if (data.length === 0) {
+    return (
+      <p className="text-center mt-10">No tienes Pokémon favoritos aún.</p>
+    );
+  }
+
+  return (
+    <div className="max-w-screen-xl mx-auto p-4">
+      <h1 className="text-2xl font-bold text-center mb-6">
+        Tus Pokémon Favoritos
+      </h1>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {data.map((pokemon) => (
+          <PokemonCard key={pokemon.name} pokemon={pokemon} />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default FavoritesPage;
