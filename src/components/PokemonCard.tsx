@@ -5,13 +5,13 @@ import { Card, CardContent } from "./ui/card";
 import { useFavoritesStore } from "@/store/favorites";
 import { Button } from "./ui/button";
 import { Heart, Heart as HeartIcon } from "lucide-react";
-
+import React from "react";
 
 interface Props {
   pokemon: PokemonDetail;
 }
 
-export const PokemonCard = ({ pokemon }: Props) => {
+export const PokemonCard = React.memo(({ pokemon }: Props) => {
   const { isFavorite, addFavorite, removeFavorite } = useFavoritesStore();
   const fav = isFavorite(pokemon.name);
 
@@ -23,6 +23,14 @@ export const PokemonCard = ({ pokemon }: Props) => {
     }
   };
   const bg = getGradient(pokemon.types.map((t) => t.type.name));
+  const renderedTypes = pokemon.types.map((t) => (
+    <span
+      key={t.type.name}
+      className="px-2 py-1 rounded-full bg-white/20 text-xs capitalize"
+    >
+      {t.type.name}
+    </span>
+  ));
 
   return (
     <Card
@@ -50,20 +58,13 @@ export const PokemonCard = ({ pokemon }: Props) => {
           </h2>
           <p className="text-sm">N.º {pokemon.id}</p>
           <div className="flex gap-2 mt-2 flex-wrap justify-center">
-            {pokemon.types.map((t) => (
-              <span
-                key={t.type.name}
-                className="px-2 py-1 rounded-full bg-white/20 text-xs capitalize"
-              >
-                {t.type.name}
-              </span>
-            ))}
+            {renderedTypes}
           </div>
         </CardContent>
       </Link>
     </Card>
   );
-};
+});
 
 const getGradient = (types: string[]): string => {
   const colors = types.map((type) => TYPE_COLORS[type] || "#AAA");

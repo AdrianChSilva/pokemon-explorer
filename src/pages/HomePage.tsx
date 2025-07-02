@@ -1,7 +1,8 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import api from "@/lib/axios";
 import { PokemonCard } from "@/components/PokemonCard";
 import type { PokemonDetail } from "@/types/pokemon";
+import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 
 const PAGE_LIMIT = 20;
 
@@ -14,7 +15,9 @@ const HomePage = () => {
   const fetchPokemons = async (currentOffset: number) => {
     setLoading(true);
     try {
-      const { data } = await api.get(`pokemon?offset=${currentOffset}&limit=${PAGE_LIMIT}`);
+      const { data } = await api.get(
+        `pokemon?offset=${currentOffset}&limit=${PAGE_LIMIT}`
+      );
 
       const results = await Promise.all(
         data.results.map((p: { name: string }) =>
@@ -23,7 +26,12 @@ const HomePage = () => {
       );
 
       const detailed = results.map((r) => r.data);
-      setPokemons((prev) => [...prev, ...detailed]);
+      setPokemons((prev) => {
+        const all = [...prev, ...detailed];
+        const unique = new Map(all.map((p) => [p.id, p]));
+        return Array.from(unique.values());
+      });
+
       setHasMore(Boolean(data.next));
     } catch (err) {
       console.error("Error cargando Pokémon:", err);
@@ -32,24 +40,27 @@ const HomePage = () => {
     }
   };
 
-  const handleScroll = useCallback(() => {
-    const scrollTop = window.scrollY;
-    const windowHeight = window.innerHeight;
-    const documentHeight = document.body.scrollHeight;
+  //   const scrollTop = window.scrollY;
+  //   const windowHeight = window.innerHeight;
+  //   const documentHeight = document.body.scrollHeight;
 
-    if (scrollTop + windowHeight >= documentHeight - 300 && !loading && hasMore) {
-      setOffset((prev) => prev + PAGE_LIMIT);
-    }
-  }, [loading, hasMore]);
+  //   if (
+  //     scrollTop + windowHeight >= documentHeight - 300 &&
+  //     !loading &&
+  //     hasMore
+  //   ) {
+  //     setOffset((prev) => prev + PAGE_LIMIT);
+  //   }
+  // }, [loading, hasMore]);
 
   useEffect(() => {
     fetchPokemons(offset);
   }, [offset]);
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [handleScroll]);
+  useInfiniteScroll(
+    () => setOffset((prev) => prev + PAGE_LIMIT),
+    loading || !hasMore
+  );
 
   return (
     <div className="max-w-screen-xl mx-auto p-4">
@@ -57,7 +68,7 @@ const HomePage = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {pokemons.map((pokemon) => (
-          <PokemonCard key={pokemon.name} pokemon={pokemon} />
+          <PokemonCard key={pokemon.id} pokemon={pokemon} />
         ))}
       </div>
 

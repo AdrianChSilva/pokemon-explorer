@@ -1,69 +1,46 @@
-# React + TypeScript + Vite
+# Pokémon Explorer 🧭
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación web construida con React + TypeScript que permite explorar Pokémon utilizando la [PokeAPI](https://pokeapi.co). Permite ver una lista de Pokémon, ver sus detalles, marcar como favoritos y navegar de forma fluida con scroll infinito y diseño mobile-first.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🛠️ Tecnologías utilizadas
 
-## Expanding the ESLint configuration
+- ⚡️ [Vite](https://vitejs.dev/) — build rápido moderno
+- ⚛️ [React](https://reactjs.org/) + [React Router](https://reactrouter.com/)
+- 🔐 [TypeScript](https://www.typescriptlang.org/)
+- 🎨 [Tailwind CSS](https://tailwindcss.com/) + [shadcn/ui](https://ui.shadcn.com/) — diseño moderno, accesible y composable
+- 💾 [Zustand](https://zustand-demo.pmnd.rs/) — gestión de estado ligera y persistente (favoritos con `localStorage`)
+- 🌐 [Axios](https://axios-http.com/) — llamadas a la API
+- 🧪 Eslint + Prettier + TS strict
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## ✨ Funcionalidades
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- ✅ Listado de Pokémon con imagen, número, tipos y fondo degradado según tipos
+- ✅ Scroll infinito
+- ✅ Vista de detalle con estadísticas, movimientos y botón de favoritos
+- ✅ Marcado y desmarcado de favoritos desde cualquier parte
+- ✅ Página de favoritos persistente (localStorage)
+- ✅ Página 404 y manejo de errores personalizados
+- ✅ Mobile-first y 100% responsive
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## ▶️ Cómo ejecutar el proyecto
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+```bash
+# Clona el repositorio
+git clone https://github.com/tu-usuario/pokemon-explorer.git
+cd pokemon-explorer
+
+# Instala dependencias
+pnpm install
+
+# Haz el build
+pnpm build
+
+# Ejecuta en entorno local
+pnpm dev

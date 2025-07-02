@@ -5,29 +5,38 @@ import { useFavoritesStore } from "@/store/favorites";
 import { Button } from "@/components/ui/button";
 import { Heart, HeartIcon } from "lucide-react";
 import type { PokemonDetail } from "@/types/pokemon";
-
+import type { AxiosError } from "axios";
 const DetailPage = () => {
   const { name } = useParams<{ name: string }>();
   const [pokemon, setPokemon] = useState<PokemonDetail | null>(null);
   const [loading, setLoading] = useState(false);
+  const [notFound, setNotFound] = useState(false);
 
   const { addFavorite, removeFavorite, isFavorite } = useFavoritesStore();
   const isFav = name ? isFavorite(name) : false;
 
   useEffect(() => {
     const fetchPokemon = async () => {
+      if (!name) return;
+
       setLoading(true);
+      setNotFound(false);
       try {
         const { data } = await api.get<PokemonDetail>(`pokemon/${name}`);
         setPokemon(data);
       } catch (err) {
-        console.error("Error cargando Pokémon:", err);
+        const error = err as AxiosError;
+        if (error.response?.status === 404) {
+          setNotFound(true);
+        } else {
+          console.error("Error cargando Pokémon:", error);
+        }
       } finally {
         setLoading(false);
       }
     };
 
-    if (name) fetchPokemon();
+    fetchPokemon();
   }, [name]);
 
   const toggleFavorite = () => {
@@ -39,14 +48,27 @@ const DetailPage = () => {
       addFavorite(name);
     }
   };
-
-  if (loading || !pokemon) {
+  if (loading) {
     return <p className="text-center mt-10">Cargando...</p>;
   }
 
-  if (loading || !pokemon) {
-    return <p className="text-center mt-10">Cargando...</p>;
+  if (notFound) {
+    return (
+      <div className="min-h-[60vh] flex flex-col items-center justify-center text-center p-4">
+        <h1 className="text-3xl font-bold text-red-600 mb-2">
+          Pokémon no encontrado
+        </h1>
+        <p className="text-gray-700 mb-4">
+          El Pokémon <strong>{name}</strong> no existe o no se pudo cargar.
+        </p>
+        <Button asChild>
+          <a href="/">Volver al inicio</a>
+        </Button>
+      </div>
+    );
   }
+
+  if (!pokemon) return null;
 
   return (
     <div className="max-w-screen-md mx-auto p-4 relative">
