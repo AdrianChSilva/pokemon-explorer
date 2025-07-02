@@ -40,18 +40,6 @@ const HomePage = () => {
     }
   };
 
-  //   const scrollTop = window.scrollY;
-  //   const windowHeight = window.innerHeight;
-  //   const documentHeight = document.body.scrollHeight;
-
-  //   if (
-  //     scrollTop + windowHeight >= documentHeight - 300 &&
-  //     !loading &&
-  //     hasMore
-  //   ) {
-  //     setOffset((prev) => prev + PAGE_LIMIT);
-  //   }
-  // }, [loading, hasMore]);
 
   useEffect(() => {
     fetchPokemons(offset);

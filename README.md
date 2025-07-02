@@ -33,7 +33,7 @@ Aplicación web construida con React + TypeScript que permite explorar Pokémon 
 
 ```bash
 # Clona el repositorio
-git clone https://github.com/tu-usuario/pokemon-explorer.git
+git clone https://github.com/AdrianChSilva/pokemon-explorer.git
 cd pokemon-explorer
 
 # Instala dependencias
