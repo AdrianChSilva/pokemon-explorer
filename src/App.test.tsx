@@ -3,7 +3,6 @@ import { describe, it, expect } from "vitest";
 import { MemoryRouter } from "react-router-dom";
 import App from "@/App";
 
-// Mocks de las páginas
 vi.mock("@/pages/HomePage", () => ({
   default: () => <div>Home Page</div>,
 }));
@@ -17,7 +16,6 @@ vi.mock("@/pages/NotFoundPage", () => ({
   default: () => <div>404 - Not Found</div>,
 }));
 
-// Mock del Header
 vi.mock("@/components/Header", () => ({
   Header: () => <header data-testid="header">Header</header>,
 }));
