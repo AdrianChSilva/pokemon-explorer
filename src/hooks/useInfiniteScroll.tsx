@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 
+export const SCROLL_THRESHOLD_PX = 300;
 export const useInfiniteScroll = (callback: () => void, disabled: boolean) => {
   useEffect(() => {
     const onScroll = () => {
@@ -7,7 +8,7 @@ export const useInfiniteScroll = (callback: () => void, disabled: boolean) => {
       const windowHeight = window.innerHeight;
       const documentHeight = document.body.scrollHeight;
 
-      if (scrollTop + windowHeight >= documentHeight - 300 && !disabled) {
+      if (scrollTop + windowHeight >= documentHeight - SCROLL_THRESHOLD_PX && !disabled) {
         callback();
       }
     };

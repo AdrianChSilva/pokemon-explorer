@@ -31,10 +31,11 @@
       "@/*": [
         "./src/*"
       ]
-    }
+    },
+    "types": ["vitest/globals"]
   },
   "include": [
-    "src"
+    "src", "src/vitest.setup.ts"
   ],
   "exclude": [
     "node_modules"
