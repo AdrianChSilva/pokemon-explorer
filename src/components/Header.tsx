@@ -3,8 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 import clsx from "clsx";
 
 const navItems = [
-  { to: "/", label: "Inicio" },
-  { to: "/favorites", label: "Favoritos" },
+  { to: "/", label: "Home" },
+  { to: "/favorites", label: "Your favorites" },
 ];
 
 export const Header = () => {
@@ -13,7 +13,11 @@ export const Header = () => {
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
       <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between">
-        <h1 className="text-xl font-bold text-blue-600">Pokémon Explorer</h1>
+        <Link to="/">
+          <h1 className="text-xl font-bold text-blue-600">
+            Pokémon Explorer
+          </h1>
+        </Link>
 
         <NavigationMenu>
           <NavigationMenuList className="space-x-4">

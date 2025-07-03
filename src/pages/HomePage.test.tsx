@@ -61,7 +61,7 @@ describe("HomePage - lista de Pokémon", () => {
 
     render(<HomePage />);
 
-    expect(screen.getByText(/cargando más pokémon/i)).toBeInTheDocument();
+    expect(screen.getByText(/Loading more Pokémon/i)).toBeInTheDocument();
 
     await waitFor(() => {
       const cards = screen.getAllByTestId("pokemon-card");

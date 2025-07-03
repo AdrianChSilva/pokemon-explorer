@@ -25,19 +25,19 @@ const FavoritesPage = () => {
   }, [favorites]);
 
   if (loading) {
-    return <p className="text-center mt-10">Cargando favoritos...</p>;
+    return <p className="text-center mt-10">Loading your favorites...</p>;
   }
 
   if (data.length === 0) {
     return (
-      <p className="text-center mt-10">No tienes Pokémon favoritos aún.</p>
+      <p className="text-center mt-10">You don't have favorites yet.</p>
     );
   }
 
   return (
     <div className="max-w-screen-xl mx-auto p-4">
       <h1 className="text-2xl font-bold text-center mb-6">
-        Tus Pokémon Favoritos
+        Your favorite Pokémon
       </h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

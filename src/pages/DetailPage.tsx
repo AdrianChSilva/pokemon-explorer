@@ -30,7 +30,7 @@ const DetailPage = () => {
         if (error.response?.status === 404) {
           setNotFound(true);
         } else {
-          console.error("Error cargando Pokémon:", error);
+          console.error("Error Loading Pokémon:", error);
         }
       } finally {
         setLoading(false);
@@ -50,20 +50,20 @@ const DetailPage = () => {
     }
   };
   if (loading) {
-    return <p className="text-center mt-10">Cargando...</p>;
+    return <p className="text-center mt-10">Loading...</p>;
   }
 
   if (notFound) {
     return (
       <div className="min-h-[60vh] flex flex-col items-center justify-center text-center p-4">
         <h1 className="text-3xl font-bold text-red-600 mb-2">
-          Pokémon no encontrado
+          Pokémon not found
         </h1>
         <p className="text-gray-700 mb-4">
-          El Pokémon <strong>{name}</strong> no existe o no se pudo cargar.
+          Pokémon <strong>{name}</strong> does not exist or could not be loaded.
         </p>
         <Button asChild>
-          <a href="/">Volver al inicio</a>
+          <a href="/">Return to Home</a>
         </Button>
       </div>
     );
@@ -105,7 +105,7 @@ const DetailPage = () => {
       </div>
 
       <div className="mt-6">
-        <h2 className="text-xl font-semibold mb-2">Estadísticas</h2>
+        <h2 className="text-xl font-semibold mb-2">Stats</h2>
         <ul className="grid grid-cols-2 gap-2">
           {pokemon.stats.map((stat) => (
             <li key={stat.stat.name} className="capitalize">
@@ -116,7 +116,7 @@ const DetailPage = () => {
       </div>
 
       <div className="mt-6">
-        <h2 className="text-xl font-semibold mb-2">Movimientos</h2>
+        <h2 className="text-xl font-semibold mb-2">Moves</h2>
         <ul className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-sm">
           {pokemon.moves.slice(0, 20).map((move) => (
             <li key={move.move.name} className="capitalize">

@@ -71,7 +71,7 @@ describe("DetailPage", () => {
 
     renderWithRoute("pikachu");
 
-    expect(screen.getByText("Cargando...")).toBeInTheDocument();
+    expect(screen.getByText("Loading...")).toBeInTheDocument();
   });
 
   it("renderiza detalles de un Pokémon válido", async () => {
@@ -120,9 +120,9 @@ describe("DetailPage", () => {
 
     renderWithRoute("missingno");
 
-    expect(await screen.findByText("Pokémon no encontrado")).toBeInTheDocument();
+    expect(await screen.findByText("Pokémon not found")).toBeInTheDocument();
     expect(
-      screen.getByText(/no existe o no se pudo cargar/i)
+      screen.getByText(/does not exist or could not be loaded/i)
     ).toBeInTheDocument();
   });
 });

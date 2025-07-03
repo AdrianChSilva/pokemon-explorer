@@ -41,7 +41,7 @@ describe("FavoritesPage", () => {
 
     render(<FavoritesPage />);
     expect(
-      screen.getByText("No tienes Pokémon favoritos aún.")
+      screen.getByText("You don't have favorites yet.")
     ).toBeInTheDocument();
   });
 
@@ -57,7 +57,7 @@ describe("FavoritesPage", () => {
 
     render(<FavoritesPage />);
 
-    expect(screen.getByText("Cargando favoritos...")).toBeInTheDocument();
+    expect(screen.getByText("Loading your favorites...")).toBeInTheDocument();
 
     await waitFor(() => {
       const cards = screen.getAllByTestId("pokemon-card");
@@ -77,6 +77,6 @@ describe("FavoritesPage", () => {
     );
 
     render(<FavoritesPage />);
-    expect(screen.getByText("Cargando favoritos...")).toBeInTheDocument();
+    expect(screen.getByText("Loading your favorites...")).toBeInTheDocument();
   });
 });

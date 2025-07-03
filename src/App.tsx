@@ -12,7 +12,7 @@ const App = () => {
     <>
       <Header />
       <main className="pt-4">
-        <Suspense fallback={<div className="text-center py-10">Cargando...</div>}>
+        <Suspense fallback={<div className="text-center py-10">Loading...</div>}>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/pokemon/:name" element={<DetailPage />} />

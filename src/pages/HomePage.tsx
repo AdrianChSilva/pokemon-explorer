@@ -62,7 +62,7 @@ const HomePage = () => {
 
       {loading && (
         <div className="text-center py-6 text-gray-500 text-sm">
-          Cargando más Pokémon...
+          Loading more Pokémon...
         </div>
       )}
     </div>

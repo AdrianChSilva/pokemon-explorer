@@ -16,27 +16,27 @@ describe("Header", () => {
     renderWithRoute("/");
 
     expect(screen.getByText("Pokémon Explorer")).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Inicio" })).toHaveAttribute("href", "/");
-    expect(screen.getByRole("link", { name: "Favoritos" })).toHaveAttribute("href", "/favorites");
+    expect(screen.getByRole("link", { name: "Home" })).toHaveAttribute("href", "/");
+    expect(screen.getByRole("link", { name: "Your favorites" })).toHaveAttribute("href", "/favorites");
   });
 
   it("marca el link correcto como activo en la ruta /", () => {
     renderWithRoute("/");
 
-    const inicioLink = screen.getByRole("link", { name: "Inicio" });
-    const favoritosLink = screen.getByRole("link", { name: "Favoritos" });
+    const homeLink = screen.getByRole("link", { name: "Home" });
+    const favoritesLink = screen.getByRole("link", { name: "Your favorites" });
 
-    expect(inicioLink).toHaveClass("text-blue-600", "underline");
-    expect(favoritosLink).toHaveClass("text-gray-700");
+    expect(homeLink).toHaveClass("text-blue-600", "underline");
+    expect(favoritesLink).toHaveClass("text-gray-700");
   });
 
   it("marca el link correcto como activo en la ruta /favorites", () => {
     renderWithRoute("/favorites");
 
-    const inicioLink = screen.getByRole("link", { name: "Inicio" });
-    const favoritosLink = screen.getByRole("link", { name: "Favoritos" });
+    const homeLink = screen.getByRole("link", { name: "Home" });
+    const favoritesLink = screen.getByRole("link", { name: "Your favorites" });
 
-    expect(favoritosLink).toHaveClass("text-blue-600", "underline");
-    expect(inicioLink).toHaveClass("text-gray-700");
+    expect(favoritesLink).toHaveClass("text-blue-600", "underline");
+    expect(homeLink).toHaveClass("text-gray-700");
   });
 });
