@@ -1,6 +1,6 @@
-# Pokémon Explorer 🧭
+# Pokémon Explorer
 
-Aplicación web construida con React + TypeScript que permite explorar Pokémon utilizando la [PokeAPI](https://pokeapi.co). 
+Aplicación web construida con React + TypeScript que permite explorar Pokémon utilizando la [PokeAPI](https://pokeapi.co).
 Puedes compilar la aplicación y correrla en local o puedes acceder desde aqui https://pokemon-explorer-acs.vercel.app/
 
 ---
@@ -16,7 +16,6 @@ Puedes compilar la aplicación y correrla en local o puedes acceder desde aqui h
 - Eslint + Prettier + TS strict
 
 ---
-
 
 ## Funcionalidades
 
@@ -46,22 +45,16 @@ pnpm build
 # Ejecuta en entorno local
 pnpm dev
 ```
+
 ## Cómo ejecutar los tests
 
-Para correr los tests de este proyecto, ejecuta en la terminal:
-
-```sh
+```bash
+# Si quieres ejecutar los tests:
 pnpm test
-```
 
-Para ver la cobertura de tests:
-
-```sh
+# Para ver el coverage
 pnpm test:coverage
-```
 
-También puedes correr los tests en modo interactivo:
-
-```sh
+# Para escuchar los cambios de los tests:
 pnpm test:watch
 ```
