@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Heart, HeartIcon } from "lucide-react";
 import type { PokemonDetail } from "@/types/pokemon";
 import type { AxiosError } from "axios";
+
 const DetailPage = () => {
   const { name } = useParams<{ name: string }>();
   const [pokemon, setPokemon] = useState<PokemonDetail | null>(null);
