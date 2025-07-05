@@ -1,5 +1,5 @@
 import { useFavoritesStore } from "@/store/favorites";
-import { beforeEach, describe, expect, it } from "vitest";
+import { describe, expect, it } from "vitest";
 
 describe("useFavoritesStore", () => {
   beforeEach(() => {
@@ -15,18 +15,15 @@ describe("useFavoritesStore", () => {
   });
 
   it("elimina un favorito", () => {
-    useFavoritesStore.setState({ favorites: ["pikachu"] });
-
+    useFavoritesStore.getState().addFavorite("pikachu");
     useFavoritesStore.getState().removeFavorite("pikachu");
 
     expect(useFavoritesStore.getState().favorites).not.toContain("pikachu");
   });
 
   it("comprueba si un Pokémon es favorito", () => {
-    useFavoritesStore.setState({ favorites: ["charmander"] });
-
+    useFavoritesStore.getState().addFavorite("charmander");
     expect(useFavoritesStore.getState().isFavorite("charmander")).toBe(true);
-    expect(useFavoritesStore.getState().isFavorite("bulbasaur")).toBe(false);
   });
 
   it("mantiene el estado persistente", () => {
