@@ -8,22 +8,22 @@ import type { PokemonDetail } from "@/types/pokemon";
 import type { AxiosError } from "axios";
 
 const DetailPage = () => {
-  const { name } = useParams<{ name: string }>();
+  const { pokemonName } = useParams<string>();
   const [pokemon, setPokemon] = useState<PokemonDetail | null>(null);
   const [loading, setLoading] = useState(false);
   const [notFound, setNotFound] = useState(false);
 
   const { addFavorite, removeFavorite, isFavorite } = useFavoritesStore();
-  const isFav = name ? isFavorite(name) : false;
+  const isFav = pokemonName ? isFavorite(pokemonName) : false;
 
   useEffect(() => {
     const fetchPokemon = async () => {
-      if (!name) return;
+      if (!pokemonName) return;
 
       setLoading(true);
       setNotFound(false);
       try {
-        const { data } = await api.get<PokemonDetail>(`pokemon/${name}`);
+        const { data } = await api.get<PokemonDetail>(`pokemon/${pokemonName}`);
         setPokemon(data);
       } catch (err) {
         const error = err as AxiosError;
@@ -38,15 +38,15 @@ const DetailPage = () => {
     };
 
     fetchPokemon();
-  }, [name]);
+  }, [pokemonName]);
 
   const toggleFavorite = () => {
-    if (!name) return;
+    if (!pokemonName) return;
 
     if (isFav) {
-      removeFavorite(name);
+      removeFavorite(pokemonName);
     } else {
-      addFavorite(name);
+      addFavorite(pokemonName);
     }
   };
   if (loading) {
@@ -60,7 +60,7 @@ const DetailPage = () => {
           Pokémon not found
         </h1>
         <p className="text-gray-700 mb-4">
-          Pokémon <strong>{name}</strong> does not exist or could not be loaded.
+          Pokémon <strong>{pokemonName}</strong> does not exist or could not be loaded.
         </p>
         <Button asChild>
           <a href="/">Return to Home</a>

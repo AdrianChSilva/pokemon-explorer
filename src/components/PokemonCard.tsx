@@ -5,13 +5,12 @@ import { Card, CardContent } from "./ui/card";
 import { useFavoritesStore } from "@/store/favorites";
 import { Button } from "./ui/button";
 import { Heart, Heart as HeartIcon } from "lucide-react";
-import React from "react";
 
 interface Props {
   pokemon: PokemonDetail;
 }
 
-export const PokemonCard = React.memo(({ pokemon }: Props) => {
+export const PokemonCard = (({ pokemon }: Props) => {
   const { isFavorite, addFavorite, removeFavorite } = useFavoritesStore();
   const fav = isFavorite(pokemon.name);
 
