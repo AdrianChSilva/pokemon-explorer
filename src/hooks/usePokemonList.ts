@@ -30,7 +30,6 @@ export const usePokemonList = () => {
       );
 
       const detailed = results.map((r) => r.data);
-      console.log('volvi a cardar');
       
       setPokemons((prev) => {
         const all = [...prev, ...detailed];
