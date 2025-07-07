@@ -13,7 +13,10 @@ export const usePokemonList = () => {
   const fetchPokemons = useCallback(async (currentOffset: number) => {
     setLoading(true);
     try {
-      const { data } = await api.get(`pokemon?offset=${currentOffset}&limit=${PAGE_LIMIT}`);
+      const {
+        data,
+      }: { data: { results: PokemonDetail[]; next: string | null } } =
+        await api.get(`pokemon?offset=${currentOffset}&limit=${PAGE_LIMIT}`);
 
       const results = await Promise.all(
         data.results.map((p: { name: string }) =>
