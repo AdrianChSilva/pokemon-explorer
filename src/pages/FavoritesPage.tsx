@@ -6,21 +6,26 @@ import type { PokemonDetail } from "@/types/pokemon";
 
 const FavoritesPage = () => {
   const { favorites } = useFavoritesStore();
-  const [data, setData] = useState<PokemonDetail[]>([]);
+  const [pokemonFavs, setPokemonFavs] = useState<PokemonDetail[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchFavorites = async () => {
       setLoading(true);
-      const pokemons = await getPokemonDetails(favorites);
-      setData(pokemons);
-      setLoading(false);
+      try {
+        const pokemon = await getPokemonDetails(favorites);
+        setPokemonFavs(pokemon);
+      } catch (err) {
+        console.error("Error cargando lista de pokemon favoritos:", err);
+      } finally {
+        setLoading(false);
+      }
     };
 
     if (favorites.length > 0) {
       fetchFavorites();
     } else {
-      setData([]);
+      setPokemonFavs([]);
     }
   }, [favorites]);
 
@@ -28,10 +33,8 @@ const FavoritesPage = () => {
     return <p className="text-center mt-10">Loading your favorites...</p>;
   }
 
-  if (data.length === 0) {
-    return (
-      <p className="text-center mt-10">You don't have favorites yet.</p>
-    );
+  if (pokemonFavs.length === 0) {
+    return <p className="text-center mt-10">You don't have favorites yet.</p>;
   }
 
   return (
@@ -41,7 +44,7 @@ const FavoritesPage = () => {
       </h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {data.map((pokemon) => (
+        {pokemonFavs.map((pokemon) => (
           <PokemonCard key={pokemon.name} pokemon={pokemon} />
         ))}
       </div>
