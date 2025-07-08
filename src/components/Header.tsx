@@ -1,8 +1,16 @@
-import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from "@/components/ui/navigation-menu";
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuList,
+} from "@/components/ui/navigation-menu";
 import { Link, useLocation } from "react-router-dom";
 import clsx from "clsx";
 
-const navItems = [
+type navItems = {
+  to: string;
+  label: string;
+};
+const pages: navItems[] = [
   { to: "/", label: "Home" },
   { to: "/favorites", label: "Your favorites" },
 ];
@@ -10,30 +18,32 @@ const navItems = [
 export const Header = () => {
   const location = useLocation();
 
+  const renderNavItem = ({ to, label }: navItems) => {
+    const isActive = location.pathname === to;
+    return (
+      <NavigationMenuItem key={to}>
+        <Link
+          to={to}
+          className={clsx(
+            "text-sm font-medium hover:text-blue-600 transition",
+            isActive ? "text-blue-600 underline" : "text-gray-700"
+          )}
+        >
+          {label}
+        </Link>
+      </NavigationMenuItem>
+    );
+  };
+
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
       <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between">
         <Link to="/">
-          <h1 className="text-xl font-bold text-blue-600">
-            Pokémon Explorer
-          </h1>
+          <h1 className="text-xl font-bold text-blue-600">Pokémon Explorer</h1>
         </Link>
-
         <NavigationMenu>
           <NavigationMenuList className="space-x-4">
-            {navItems.map(({ to, label }) => (
-              <NavigationMenuItem key={to}>
-                <Link
-                  to={to}
-                  className={clsx(
-                    "text-sm font-medium hover:text-blue-600 transition",
-                    location.pathname === to ? "text-blue-600 underline" : "text-gray-700"
-                  )}
-                >
-                  {label}
-                </Link>
-              </NavigationMenuItem>
-            ))}
+            {pages.map(renderNavItem)}
           </NavigationMenuList>
         </NavigationMenu>
       </div>
