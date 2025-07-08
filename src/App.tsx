@@ -15,7 +15,7 @@ const App = () => {
         <Suspense fallback={<div className="text-center py-10">Loading...</div>}>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/pokemon/:pokemon" element={<DetailPage />} />
+            <Route path="/pokemon/:pokemonName" element={<DetailPage />} />
             <Route path="/favorites" element={<FavoritesPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
