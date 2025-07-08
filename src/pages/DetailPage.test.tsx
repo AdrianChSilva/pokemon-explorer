@@ -34,7 +34,7 @@ const renderWithRoute = (name: string) =>
   render(
     <MemoryRouter initialEntries={[`/pokemon/${name}`]}>
       <Routes>
-        <Route path="/pokemon/:pokemonName" element={<DetailPage />} />
+        <Route path="/pokemon/:pokemon" element={<DetailPage />} />
       </Routes>
     </MemoryRouter>
   );
