@@ -11,11 +11,11 @@ const App = () => {
   return (
     <>
       <Header />
-      <main className="pt-8">
+      <main className="pt-4">
         <Suspense fallback={<div className="text-center py-10">Loading...</div>}>
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/pokemon/:pokemonName" element={<DetailPage />} />
+            <Route path="/pokemon/:pokemon" element={<DetailPage />} />
             <Route path="/favorites" element={<FavoritesPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
