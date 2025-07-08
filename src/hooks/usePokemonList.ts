@@ -29,11 +29,16 @@ export const usePokemonList = () => {
         pokemonNames.map((name) => api.get<PokemonDetail>(`pokemon/${name}`))
       );
 
-      const detailed = results.map((r) => r.data);
-      
+      const detailed = results.map((pokemonDetail) => pokemonDetail.data);
+
       setPokemons((prev) => {
-        const all = [...prev, ...detailed];
-        return Array.from(new Map(all.map((p) => [p.id, p])).values());
+        const newPokemons = detailed.filter(
+          (newPoke) => !prev.some((oldPoke) => oldPoke.id === newPoke.id)
+        );
+        return [
+          ...prev,
+          ...newPokemons
+        ];
       });
 
       setHasMore(Boolean(data.next));
