@@ -10,7 +10,7 @@ interface Props {
   pokemon: PokemonDetail;
 }
 
-export const PokemonCard = (({ pokemon }: Props) => {
+export const PokemonCard = ({ pokemon }: Props) => {
   const { isFavorite, addFavorite, removeFavorite } = useFavoritesStore();
   const fav = isFavorite(pokemon.name);
 
@@ -63,13 +63,15 @@ export const PokemonCard = (({ pokemon }: Props) => {
       </Link>
     </Card>
   );
-});
+};
 
-const getGradient = (types: string[]): string => {
-  const colors = types.map((type) => TYPE_COLORS[type] || "#AAA");
+const getGradient = (pokemonType: string[]): string => {
+  const defaultColor = "#FFFF";
+  const colors = pokemonType.map((type) => TYPE_COLORS[type] ?? defaultColor);
 
-  if (colors.length === 1) return colors[0];
-  if (colors.length === 2)
-    return `linear-gradient(135deg, ${colors[0]}, ${colors[1]})`;
-  return `linear-gradient(135deg, ${colors[0]}, ${colors[1]}, ${colors[2]})`;
+  if (colors.length === 1) {
+    return colors[0];
+  }
+
+  return `linear-gradient(135deg, ${colors.join(", ")})`;
 };
