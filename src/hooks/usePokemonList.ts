@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import api from "@/lib/axios";
 import type { PokemonDetail } from "@/types/pokemon";
+import { getPokemonDetails } from "@/lib/getPokemonDetails";
 
 const PAGE_LIMIT = 20;
 interface pokeApiResponse {
@@ -25,11 +26,7 @@ export const usePokemonList = () => {
 
       const pokemonNames = data.results.map((pokemon) => pokemon.name);
 
-      const results = await Promise.all(
-        pokemonNames.map((name) => api.get<PokemonDetail>(`pokemon/${name}`))
-      );
-
-      const detailed = results.map((pokemonDetail) => pokemonDetail.data);
+      const detailed = await getPokemonDetails(pokemonNames)
 
       setPokemons((prev) => {
         const newPokemons = detailed.filter(
