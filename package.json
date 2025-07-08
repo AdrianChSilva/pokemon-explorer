@@ -4,14 +4,16 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
     "build": "tsc -b && vite build",
+    "dev": "vite",
     "lint": "eslint .",
+    "prepare": "husky",
     "preview": "vite preview",
-    "test": "vitest",
-    "test:watch": "vitest --watch",
     "test:coverage": "vitest run --coverage",
-    "prepare": "husky"
+    "test:watch": "vitest --watch",
+    "test": "vitest",
+    "type-check": "tsc --noEmit",
+    "pre-push": "pnpm lint && pnpm type-check && pnpm test --run"
   },
   "dependencies": {
     "@radix-ui/react-navigation-menu": "1.2.13",

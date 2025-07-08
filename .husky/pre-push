@@ -1,5 +1,11 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+echo "Ejecutando ESLint global..."
+pnpm lint
+
+echo "Verificando tipos con TypeScript..."
+pnpm type-check
+
 echo "Ejecutando tests antes del push..."
 pnpm test --run
