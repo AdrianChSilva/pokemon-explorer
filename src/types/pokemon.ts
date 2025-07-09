@@ -1,17 +1,17 @@
-export interface PokemonType {
+interface PokemonType {
   type: {
     name: string;
   };
 }
 
-export interface PokemonStat {
+interface PokemonStat {
   base_stat: number;
   stat: {
     name: string;
   };
 }
 
-export interface PokemonMove {
+interface PokemonMove {
   move: {
     name: string;
   };
