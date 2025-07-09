@@ -5,6 +5,7 @@ import { Card, CardContent } from "./ui/card";
 import { useFavoritesStore } from "@/store/favorites";
 import { Button } from "./ui/button";
 import { Heart, Heart as HeartIcon } from "lucide-react";
+import { toggleFavorite } from "@/lib/utils";
 
 interface Props {
   pokemon: PokemonDetail;
@@ -14,13 +15,9 @@ export const PokemonCard = ({ pokemon }: Props) => {
   const { isFavorite, addFavorite, removeFavorite } = useFavoritesStore();
   const fav = isFavorite(pokemon.name);
 
-  const toggleFavorite = () => {
-    if (fav) {
-      removeFavorite(pokemon.name);
-    } else {
-      addFavorite(pokemon.name);
-    }
-  };
+  const handleFavorite = () =>
+    toggleFavorite(fav, pokemon.name, removeFavorite, addFavorite);
+
   const bg = getGradient(pokemon.types.map((t) => t.type.name));
 
   return (
@@ -29,7 +26,7 @@ export const PokemonCard = ({ pokemon }: Props) => {
       style={{ background: bg }}
     >
       <Button
-        onClick={toggleFavorite}
+        onClick={handleFavorite}
         variant="ghost"
         size="icon"
         className="absolute top-2 right-2 text-white hover:bg-white/10"

@@ -3,22 +3,16 @@ import { useFavoritesStore } from "@/store/favorites";
 import { Button } from "@/components/ui/button";
 import { Heart, HeartIcon } from "lucide-react";
 import { usePokemonDetails } from "@/hooks/usePokemonDetail";
+import { toggleFavorite } from "@/lib/utils";
 
 const DetailPage = () => {
   const { pokemonName } = useParams<string>();
   const { addFavorite, removeFavorite, isFavorite } = useFavoritesStore();
   const { loading, notFound, pokemonDetails } = usePokemonDetails(pokemonName!);
   const isFav = pokemonName ? isFavorite(pokemonName) : false;
+  const handleFavorite = () =>
+    toggleFavorite(isFav, pokemonName!, removeFavorite, addFavorite);
 
-  const toggleFavorite = () => {
-    if (!pokemonName) return;
-
-    if (isFav) {
-      removeFavorite(pokemonName);
-    } else {
-      addFavorite(pokemonName);
-    }
-  };
   if (loading) {
     return <p className="text-center mt-10">Loading...</p>;
   }
@@ -54,7 +48,7 @@ const DetailPage = () => {
   return (
     <div className="max-w-screen-md mx-auto p-4 relative">
       <Button
-        onClick={toggleFavorite}
+        onClick={handleFavorite}
         variant="ghost"
         size="icon"
         className="absolute top-4 right-4 text-red-500 hover:bg-red-100"
