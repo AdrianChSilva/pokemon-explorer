@@ -1,33 +1,10 @@
-import { useEffect, useState } from "react";
 import { useFavoritesStore } from "@/store/favorites";
 import { PokemonCard } from "@/components/PokemonCard";
-import { getAllPokemonDetails } from "@/lib/getAllPokemonDetails";
-import type { PokemonDetail } from "@/types/pokemon";
+import { useFavoritesPokemon } from "@/hooks/useFavoritesPokemon";
 
 const FavoritesPage = () => {
   const { favorites } = useFavoritesStore();
-  const [pokemonFavs, setPokemonFavs] = useState<PokemonDetail[]>([]);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const fetchFavorites = async () => {
-      setLoading(true);
-      try {
-        const pokemon = await getAllPokemonDetails(favorites);
-        setPokemonFavs(pokemon);
-      } catch (err) {
-        console.error("Error cargando lista de pokemon favoritos:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (favorites.length > 0) {
-      fetchFavorites();
-    } else {
-      setPokemonFavs([]);
-    }
-  }, [favorites]);
+  const { pokemonFavs, loading } = useFavoritesPokemon(favorites);
 
   if (loading) {
     return <p className="text-center mt-10">Loading your favorites...</p>;
