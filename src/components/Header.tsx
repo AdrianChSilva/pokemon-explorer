@@ -6,11 +6,11 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import clsx from "clsx";
 
-type navItems = {
+type NavItems = {
   to: string;
   label: string;
 };
-const pages: navItems[] = [
+const pages: NavItems[] = [
   { to: "/", label: "Home" },
   { to: "/favorites", label: "Your favorites" },
 ];
