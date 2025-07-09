@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import api from "@/lib/axios";
 import type { PokemonDetail } from "@/types/pokemon";
-import { getPokemonDetails } from "@/lib/getPokemonDetails";
+import { getAllPokemonDetails } from "@/lib/getAllPokemonDetails";
 
 const PAGE_LIMIT = 20;
 interface pokeApiResponse {
@@ -26,16 +26,13 @@ export const usePokemonList = () => {
 
       const pokemonNames = data.results.map((pokemon) => pokemon.name);
 
-      const detailed = await getPokemonDetails(pokemonNames)
+      const detailed = await getAllPokemonDetails(pokemonNames);
 
       setPokemons((prev) => {
         const newPokemons = detailed.filter(
           (newPoke) => !prev.some((oldPoke) => oldPoke.id === newPoke.id)
         );
-        return [
-          ...prev,
-          ...newPokemons
-        ];
+        return [...prev, ...newPokemons];
       });
 
       setHasMore(Boolean(data.next));

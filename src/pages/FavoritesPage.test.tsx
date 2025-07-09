@@ -3,7 +3,7 @@ import { describe, it, vi, beforeEach, expect } from "vitest";
 import FavoritesPage from "@/pages/FavoritesPage";
 import type { PokemonDetail } from "@/types/pokemon";
 import * as favoritesStore from "@/store/favorites";
-import * as pokemonApi from "@/lib/getPokemonDetails";
+import * as pokemonApi from "@/lib/getAllPokemonDetails";
 
 vi.mock("@/components/PokemonCard", () => ({
   PokemonCard: ({ pokemon }: { pokemon: PokemonDetail }) => (
@@ -12,7 +12,7 @@ vi.mock("@/components/PokemonCard", () => ({
 }));
 
 vi.mock("@/store/favorites");
-vi.mock("@/lib/getPokemonDetails");
+vi.mock("@/lib/getAllPokemonDetails");
 
 const mockPokemon = (id: number, name: string): PokemonDetail => ({
   id,
@@ -50,7 +50,7 @@ describe("FavoritesPage", () => {
       favorites: [1, 4],
     });
 
-    vi.mocked(pokemonApi.getPokemonDetails).mockResolvedValue([
+    vi.mocked(pokemonApi.getAllPokemonDetails).mockResolvedValue([
       mockPokemon(1, "bulbasaur"),
       mockPokemon(4, "charmander"),
     ]);
@@ -72,7 +72,7 @@ describe("FavoritesPage", () => {
       favorites: [1],
     });
 
-    vi.mocked(pokemonApi.getPokemonDetails).mockImplementation(
+    vi.mocked(pokemonApi.getAllPokemonDetails).mockImplementation(
       () => new Promise(() => {})
     );
 

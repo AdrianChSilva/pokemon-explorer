@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useFavoritesStore } from "@/store/favorites";
 import { PokemonCard } from "@/components/PokemonCard";
-import { getPokemonDetails } from "@/lib/getPokemonDetails";
+import { getAllPokemonDetails } from "@/lib/getAllPokemonDetails";
 import type { PokemonDetail } from "@/types/pokemon";
 
 const FavoritesPage = () => {
@@ -13,7 +13,7 @@ const FavoritesPage = () => {
     const fetchFavorites = async () => {
       setLoading(true);
       try {
-        const pokemon = await getPokemonDetails(favorites);
+        const pokemon = await getAllPokemonDetails(favorites);
         setPokemonFavs(pokemon);
       } catch (err) {
         console.error("Error cargando lista de pokemon favoritos:", err);
