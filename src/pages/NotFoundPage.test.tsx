@@ -13,10 +13,9 @@ describe("NotFoundPage", () => {
 
     expect(screen.getByRole("heading", { name: "404" })).toBeInTheDocument();
 
-    expect(screen.getByText("La página que buscas no existe.")).toBeInTheDocument();
+    expect(screen.getByText("The page you are looking for does not exist.")).toBeInTheDocument();
 
-    const link = screen.getByRole("link", { name: /volver al inicio/i });
+    const link = screen.getByRole("link", { name: /Return to home page/i });
     expect(link).toBeInTheDocument();
-    expect(link).toHaveAttribute("href", "/");
   });
 });

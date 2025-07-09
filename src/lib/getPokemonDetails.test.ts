@@ -1,5 +1,5 @@
 import { describe, it, vi, expect, beforeEach } from "vitest";
-import { getPokemonDetails } from "@/lib/getPokemonDetails";
+import { getAllPokemonDetails } from "@/lib/getAllPokemonDetails";
 import api from "@/lib/axios";
 import type { PokemonDetail } from "@/types/pokemon";
 
@@ -20,7 +20,7 @@ const createMockPokemon = (id: number, name: string): PokemonDetail => ({
   moves: [],
 });
 
-describe("getPokemonDetails", () => {
+describe("getAllPokemonDetails", () => {
   beforeEach(() => {
     vi.resetAllMocks();
   });
@@ -35,7 +35,7 @@ describe("getPokemonDetails", () => {
       return Promise.resolve({ data });
     });
 
-    const result = await getPokemonDetails(names);
+    const result = await getAllPokemonDetails(names);
 
     expect(result).toEqual(mockData);
     expect(getMock).toHaveBeenCalledTimes(3);
