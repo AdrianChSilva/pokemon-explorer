@@ -18,23 +18,6 @@ const pages: navItems[] = [
 export const Header = () => {
   const location = useLocation();
 
-  const renderNavItem = ({ to, label }: navItems) => {
-    const isActive = location.pathname === to;
-    return (
-      <NavigationMenuItem key={to}>
-        <Link
-          to={to}
-          className={clsx(
-            "text-sm font-medium hover:text-blue-600 transition",
-            isActive ? "text-blue-600 underline" : "text-gray-700"
-          )}
-        >
-          {label}
-        </Link>
-      </NavigationMenuItem>
-    );
-  };
-
   return (
     <header className="bg-white shadow-sm sticky top-0 z-50">
       <div className="max-w-screen-xl mx-auto px-4 py-3 flex items-center justify-between">
@@ -43,7 +26,21 @@ export const Header = () => {
         </Link>
         <NavigationMenu>
           <NavigationMenuList className="space-x-4">
-            {pages.map(renderNavItem)}
+            {pages.map(({ to, label }) => (
+              <NavigationMenuItem key={to}>
+                <Link
+                  to={to}
+                  className={clsx(
+                    "text-sm font-medium hover:text-blue-600 transition",
+                    location.pathname === to
+                      ? "text-blue-600 underline"
+                      : "text-gray-700"
+                  )}
+                >
+                  {label}
+                </Link>
+              </NavigationMenuItem>
+            ))}
           </NavigationMenuList>
         </NavigationMenu>
       </div>
