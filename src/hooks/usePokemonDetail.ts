@@ -10,7 +10,6 @@ export const usePokemonDetails = (pokemonName: string) => {
 
   useEffect(() => {
     const fetchPokemon = async () => {
-      if (!pokemonName) return;
 
       setLoading(true);
       setNotFound(false);
