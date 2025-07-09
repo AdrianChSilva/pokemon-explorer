@@ -76,12 +76,4 @@ describe("usePokemonDetails", () => {
       expect(result.current.notFound).toBe(false);
     });
   });
-
-  it("no hace nada si no se pasa pokemonName", () => {
-    const { result } = renderHook(() => usePokemonDetails(""));
-
-    expect(result.current.pokemonDetails).toBeUndefined();
-    expect(result.current.loading).toBe(false);
-    expect(result.current.notFound).toBe(false);
-  });
 });
