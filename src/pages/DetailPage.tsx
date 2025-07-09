@@ -60,7 +60,8 @@ const DetailPage = () => {
           Pokémon not found
         </h1>
         <p className="text-gray-700 mb-4">
-          Pokémon <strong>{pokemonName}</strong> does not exist or could not be loaded.
+          Pokémon <b>{pokemonName}</b> does not exist or could not be
+          loaded.
         </p>
         <Button asChild>
           <a href="/">Return to Home</a>
@@ -69,7 +70,17 @@ const DetailPage = () => {
     );
   }
 
-  if (!pokemon) return null;
+  if (!pokemon)
+    return (
+      <div className="min-h-[60vh] flex flex-col items-center justify-center text-center p-4">
+        <h1 className="text-3xl font-bold text-red-600 mb-2">
+          Something went wrong
+        </h1>
+        <Button asChild>
+          <a href="/">Return to Home</a>
+        </Button>
+      </div>
+    );
 
   return (
     <div className="max-w-screen-md mx-auto p-4 relative">
@@ -93,12 +104,12 @@ const DetailPage = () => {
         </h1>
 
         <div className="flex gap-2">
-          {pokemon.types.map((t) => (
+          {pokemon.types.map((type) => (
             <span
-              key={t.type.name}
+              key={type.type.name}
               className="px-3 py-1 bg-gray-100 rounded-full capitalize text-sm"
             >
-              {t.type.name}
+              {type.type.name}
             </span>
           ))}
         </div>
@@ -118,7 +129,7 @@ const DetailPage = () => {
       <div className="mt-6">
         <h2 className="text-xl font-semibold mb-2">Moves</h2>
         <ul className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-sm">
-          {pokemon.moves.slice(0, 20).map((move) => (
+          {pokemon.moves.slice(0, 10).map((move) => (
             <li key={move.move.name} className="capitalize">
               {move.move.name}
             </li>

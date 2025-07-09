@@ -22,14 +22,6 @@ export const PokemonCard = ({ pokemon }: Props) => {
     }
   };
   const bg = getGradient(pokemon.types.map((t) => t.type.name));
-  const renderedTypes = pokemon.types.map((t) => (
-    <span
-      key={t.type.name}
-      className="px-2 py-1 rounded-full bg-white/20 text-xs capitalize"
-    >
-      {t.type.name}
-    </span>
-  ));
 
   return (
     <Card
@@ -57,7 +49,14 @@ export const PokemonCard = ({ pokemon }: Props) => {
           </h2>
           <p className="text-sm">N.º {pokemon.id}</p>
           <div className="flex gap-2 mt-2 flex-wrap justify-center">
-            {renderedTypes}
+            {pokemon.types.map((t) => (
+              <span
+                key={t.type.name}
+                className="px-2 py-1 rounded-full bg-white/20 text-xs capitalize"
+              >
+                {t.type.name}
+              </span>
+            ))}
           </div>
         </CardContent>
       </Link>
