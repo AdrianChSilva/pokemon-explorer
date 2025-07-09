@@ -1,11 +1,10 @@
 import type { PokemonDetail } from "@/types/pokemon";
-import { TYPE_COLORS } from "@/types/typeColors";
 import { Link } from "react-router-dom";
 import { Card, CardContent } from "./ui/card";
 import { useFavoritesStore } from "@/store/favorites";
 import { Button } from "./ui/button";
 import { Heart, Heart as HeartIcon } from "lucide-react";
-import { toggleFavorite } from "@/lib/utils";
+import { getGradient, toggleFavorite } from "@/lib/utils";
 
 interface Props {
   pokemon: PokemonDetail;
@@ -59,15 +58,4 @@ export const PokemonCard = ({ pokemon }: Props) => {
       </Link>
     </Card>
   );
-};
-
-const getGradient = (pokemonType: string[]): string => {
-  const defaultColor = "#FFFF";
-  const colors = pokemonType.map((type) => TYPE_COLORS[type] ?? defaultColor);
-
-  if (colors.length === 1) {
-    return colors[0];
-  }
-
-  return `linear-gradient(135deg, ${colors.join(", ")})`;
 };
