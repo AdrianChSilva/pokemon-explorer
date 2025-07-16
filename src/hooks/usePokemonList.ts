@@ -17,33 +17,33 @@ export const usePokemonList = () => {
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
 
-  const fetchPokemons = async (currentOffset: number) => {
-    setLoading(true);
-    try {
-      const { data }: pokeApiResponse = await api.get(
-        `pokemon?offset=${currentOffset}&limit=${PAGE_LIMIT}`
-      );
-
-      const pokemonNames = data.results.map((pokemon) => pokemon.name);
-
-      const detailed = await getAllPokemonDetails(pokemonNames);
-
-      setPokemons((prev) => {
-        const newPokemons = detailed.filter(
-          (newPoke) => !prev.some((oldPoke) => oldPoke.id === newPoke.id)
-        );
-        return [...prev, ...newPokemons];
-      });
-
-      setHasMore(Boolean(data.next));
-    } catch (err) {
-      console.error("Error cargando Pokémon:", err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const fetchPokemons = async (currentOffset: number) => {
+      setLoading(true);
+      try {
+        const { data }: pokeApiResponse = await api.get(
+          `pokemon?offset=${currentOffset}&limit=${PAGE_LIMIT}`
+        );
+
+        const pokemonNames = data.results.map((pokemon) => pokemon.name);
+
+        const detailed = await getAllPokemonDetails(pokemonNames);
+
+        setPokemons((prev) => {
+          const newPokemons = detailed.filter(
+            (newPoke) => !prev.some((oldPoke) => oldPoke.id === newPoke.id)
+          );
+          return [...prev, ...newPokemons];
+        });
+
+        setHasMore(Boolean(data.next));
+      } catch (err) {
+        console.error("Error cargando Pokémon:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchPokemons(offset);
   }, [offset]);
 
